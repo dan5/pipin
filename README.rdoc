@@ -1,0 +1,14 @@
+== install
+
+ gem install pipin
+
+== setup
+
+ #pipin new myblog
+ ruby -r pipin -e 'Pipin.command :new, ARGV.first'
+
+== build
+
+ cd myblog
+ ruby -r pipin -e 'Pipin.command :build, ARGV.first || "./"'
+ #rake

@@ -5,9 +5,9 @@ require "pipin/version"
 Gem::Specification.new do |s|
   s.name        = "pipin"
   s.version     = Pipin::VERSION
-  s.authors     = ["dan5"]
+  s.authors     = ["dan5ya"]
   s.email       = ["dan5.ya@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/dan5/pipin"
   s.summary     = %q{blog}
   s.description = %q{simple blog system}
 
