@@ -1,0 +1,4 @@
+.post
+  .before_post=# render_plugin_hook(:before_entry, @entry)
+  .body~ post.to_html
+  .after_post=# render_plugin_hook(:after_entry, @entry, self)

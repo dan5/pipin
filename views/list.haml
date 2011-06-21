@@ -1,0 +1,4 @@
+.before_entries=# render_plugin_hook(:before_entries, self, @entries)
+- posts.each do |post|
+  ~ render(:post, binding)
+.after_entries=# render_plugin_hook(:after_entries, self, @entries)

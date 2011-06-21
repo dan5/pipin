@@ -1,0 +1,19 @@
+!!! XML
+!!! 1.1
+%html{"xml:lang" => "ja", :xmlns => "http://www.w3.org/1999/xhtml"}
+  =# render_plugin_hook(:before_header, self)
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
+    %meta{:category => "ruby; setup"}/
+    - css = 'pipin.css' || config[:css]
+    %link{:rel => "stylesheet", :type => 'text/css', :href => css}/
+    %title= @title# || config[:title] 
+  %body
+    .main
+      =# render_plugin_hook(:flavour_header, self)
+      .content
+        .before_content=# render_plugin_hook(:before_content, self)
+        != yield
+        .before_content=# render_plugin_hook(:after_content, self)
+      =# render_plugin_hook(:flavour_footer, self)

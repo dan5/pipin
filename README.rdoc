@@ -12,3 +12,20 @@
  cd myblog
  #rake
  ruby -r pipin -e 'Pipin.command :build'
+
+== todo
+
+* 原稿の入力
+** html, txt(hd)
+** to_html
+
+* 原稿の検索
+** 個別
+** 最近のn件
+** 月別
+** カテゴリ
+
+* html出力
+** 個別ページ
+** トップページ
+** 月別ページ
