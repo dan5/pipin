@@ -5,6 +5,10 @@ require 'fileutils'
 include Haml::Helpers
 alias h html_escape
 
+def rootdir
+  File.join(File.dirname(File.expand_path(__FILE__)).untaint, '..')
+end
+
 module Pipin
   def self.command(cmd)
     __send__ "command_#{cmd}", *ARGV
@@ -12,7 +16,7 @@ module Pipin
 
   def self.command_new(dir)
     File.exist?(dir) && raise("File exists - #{dir}")
-    FileUtils.cp_r './templatefiles', dir
+    FileUtils.cp_r File.join(rootdir ,'templatefiles'), dir
     puts Dir.glob(File.join(dir, '**/*')).map {|e| '  create ' + e }
   end
 
@@ -24,8 +28,8 @@ module Pipin
   end
 
   class Builder
-    def initialize(dstdir)
-      @dstdir = dstdir
+    def initialize(distdir)
+      @distdir = distdir
     end
 
     def render_posts
@@ -40,8 +44,8 @@ module Pipin
     end
 
     def write_html(label, html)
-      p label
-      File.open(File.join(@dstdir, label + '.html'), 'w') {|f| f.write html }
+      Dir.mkdir @distdir unless File.exist?(@distdir)
+      File.open(File.join(@distdir, label + '.html'), 'w') {|f| f.write html }
     end
 
     def render_with_layout(template, b = binding)
@@ -49,13 +53,13 @@ module Pipin
     end
 
     def render(template, b = binding)
-      haml = File.read("../views/#{template}.haml")
+      haml = File.read(File.join(rootdir, "views/#{template}.haml"))
       Haml::Engine.new(haml).render(b)
     end
   end
 
   class Post
-    @@entries_dir = 'data_sample'
+    @@entries_dir = 'datasample'
     def self.find(pattern, options = {})
       files = Dir.chdir(@@entries_dir) { Dir.glob(pattern) }.sort.reverse
       files = files[0, options[:limit]] if options[:limit]
