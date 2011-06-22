@@ -13,7 +13,7 @@ module Pipin
   def self.command_new(dir)
     File.exist?(dir) && raise("File exists - #{dir}")
     FileUtils.cp_r './templatefiles', dir
-    puts Dir.glob(File.join(dir, '*')).map {|e| '  create ' + e }
+    puts Dir.glob(File.join(dir, '**/*')).map {|e| '  create ' + e }
   end
 
   def self.command_build(dir = '.')
