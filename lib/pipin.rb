@@ -57,7 +57,6 @@ module Pipin
   class Post
     @@entries_dir = 'data_sample'
     def self.find(pattern, options = {})
-      pattern.gsub!(/[^\d\w_*]/, '') # DON'T DELETE!!!
       files = Dir.chdir(@@entries_dir) { Dir.glob(pattern) }.sort.reverse
       files = files[0, options[:limit]] if options[:limit]
       files.map {|e| Post.new(e) }
