@@ -1,6 +1,6 @@
 require 'pipin/version'
 require 'haml'
-require 'pathname'
+require 'fileutils'
 
 include Haml::Helpers
 alias h html_escape
@@ -11,17 +11,9 @@ module Pipin
   end
 
   def self.command_new(dir)
-    # todo: ./new_tamplate をコピーしたほうがいいか
-    #[
-    #  [:mkdir, dir],
-    #  [:create, dir + '/pipinrc'],
-    #]
-    puts "    create #{dir}"
-    Dir.mkdir dir
-    Dir.chdir(dir) {
-      puts "    create #{dir}/pipinrc"
-      File.open('pipinrc', 'w') {}
-    }
+    File.exist?(dir) && raise("File exists - #{dir}")
+    FileUtils.cp_r './templatefiles', dir
+    puts Dir.glob(File.join(dir, '*')).map {|e| '  create ' + e }
   end
 
   def self.command_build(dir = '.')
@@ -49,7 +41,7 @@ module Pipin
 
     def write_html(label, html)
       p label
-      File.open(File.join(@dstdir, "#{label}.html"), 'w') {|f| f.write html }
+      File.open(File.join(@dstdir, label + '.html'), 'w') {|f| f.write html }
     end
 
     def render_with_layout(template, b = binding)
@@ -73,13 +65,13 @@ module Pipin
 
     attr_reader :filename, :header, :body
     def initialize(filename)
-      @filename = Pathname.new(filename)
-      @header, @body = Dir.chdir(@@entries_dir) { @filename.read }.split(/^__$/, 2)
+      @filename = filename
+      @header, @body = Dir.chdir(@@entries_dir) { File.read(@filename) }.split(/^__$/, 2)
       @header, @body = nil, @header unless @body
     end
 
     def label
-      filename.basename('.*')
+      File.basename(filename, '.*')
     end
 
     def to_html
