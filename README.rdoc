@@ -16,12 +16,22 @@
 == todo
 
 * 原稿の入力
- * html, txt(hd)
- * to_html
+  * html, txt(hd)
+  * to_html
 
 * 原稿の検索
- * カテゴリ
+  * カテゴリ
 
 * html出力
- * ページ一覧
- * 月別ページ
+  * ページ一覧
+  * 月別ページ
+
+== from tDiary
+
+* 静的なhtmlとして保存できる
+** postのhtmlを生成するプラグインや
+** 写真とかもそのままいける
+* urlの互換
+* exportはレンダリングされたhtmlから
+* todo: コメント...
+* todo: カテゴリなどの付属情報はxml的に...

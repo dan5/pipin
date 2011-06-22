@@ -2,14 +2,13 @@ require 'pipin/version'
 require 'haml'
 require 'fileutils'
 
-include Haml::Helpers
-alias h html_escape
-
-def rootdir
-  File.join(File.dirname(File.expand_path(__FILE__)).untaint, '..')
-end
+def rootdir() File.join(File.dirname(File.expand_path(__FILE__)), '..') end
+def htmlsufix() '.html' end
 
 module Pipin
+  Date_pattern = '[0-9]' * 8 + '*'
+  Post_pattern = '[0-9a-zA-Z]*'
+
   def self.command(cmd)
     __send__ "command_#{cmd}", *ARGV
   end
@@ -23,6 +22,8 @@ module Pipin
   def self.command_build(dir = '.')
     load dir + '/pipinrc'
     build = Builder.new('public')
+    build.render_sitemap
+    build.render_archives
     build.render_posts
     build.render_list('index', '20*', :limit => 3)
   end
@@ -32,8 +33,25 @@ module Pipin
       @distdir = distdir
     end
 
+    def render_sitemap
+      posts = Post.find(Post_pattern)
+      write_html 'sitemap', render_with_layout(:sitemap, binding)
+    end
+
+    def render_archives
+      years = Post.year_months
+      write_html 'archives', render_with_layout(:archives, binding)
+      # render month page
+      years.each do |year, months|
+        months.each do |month|
+          name = year + month
+          render_list(name, name + '*')
+        end
+      end
+    end
+
     def render_posts
-      Post.find('20*').each do |post|
+      Post.find(Post_pattern).each do |post|
         write_html post.label, render_with_layout(:post, binding)
       end
     end
@@ -45,7 +63,9 @@ module Pipin
 
     def write_html(label, html)
       Dir.mkdir @distdir unless File.exist?(@distdir)
-      File.open(File.join(@distdir, label + '.html'), 'w') {|f| f.write html }
+      filename = File.join(@distdir, label + '.html')
+      File.open(filename, 'w') {|f| f.write html }
+      puts '  create ' + filename
     end
 
     def render_with_layout(template, b = binding)
@@ -61,9 +81,23 @@ module Pipin
   class Post
     @@entries_dir = 'datasample'
     def self.find(pattern, options = {})
-      files = Dir.chdir(@@entries_dir) { Dir.glob(pattern) }.sort.reverse
-      files = files[0, options[:limit]] if options[:limit]
-      files.map {|e| Post.new(e) }
+      self.find_file(pattern, options).map {|e| Post.new(e) }
+    end
+
+    def self.find_file(pattern, options = {})
+      files = Dir.chdir(@@entries_dir) { Dir.glob(pattern + '.{txt,html}') }.sort.reverse
+      options[:limit] ? files[0, options[:limit]] : files 
+    end
+
+    def self.year_months
+      result = {}
+      files = find_file(Date_pattern)
+      first_year = files.last[/^\d{4}/]
+      last_year = files.first[/^\d{4}/]
+      (first_year..last_year).to_a.reverse.map do |year|
+        result[year] = ('01'..'12').select {|month| find_file("#{year}#{month}*")[0] }
+      end
+      result
     end
 
     attr_reader :filename, :header, :body

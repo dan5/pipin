@@ -1,4 +1,7 @@
-.before_entries=# render_plugin_hook(:before_entries, self, @entries)
+.before_entries
 - posts.each do |post|
-  ~ render(:post, binding)
-.after_entries=# render_plugin_hook(:after_entries, self, @entries)
+  .post
+    .body~ post.to_html
+    .permalink
+      %a{:href => post.label + htmlsufix} permalink
+.after_entries

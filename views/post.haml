@@ -1,4 +1,6 @@
 .post
-  .before_post=# render_plugin_hook(:before_entry, @entry)
+  .before_post
   .body~ post.to_html
-  .after_post=# render_plugin_hook(:after_entry, @entry, self)
+  .permalink
+    %a{:href => post.label + htmlsufix} permalink
+  .after_post

@@ -6,10 +6,14 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
     %meta{:category => "ruby; setup"}/
-    - css = 'pipin.css' || config[:css]
-    %link{:rel => "stylesheet", :type => 'text/css', :href => css}/
+    %link{:rel => "stylesheet", :type => 'text/css', :href => 'pipin.css' || config[:css]}/
     %title= @title# || config[:title] 
   %body
+    %h1 Pipin Diary
+    .menus
+      %a{:href => './index' + htmlsufix} Latest
+      %a{:href => './archives' + htmlsufix} Archives
+      %a{:href => './about' + htmlsufix} About
     .main
       =# render_plugin_hook(:flavour_header, self)
       .content
@@ -17,3 +21,11 @@
         != yield
         .before_content=# render_plugin_hook(:after_content, self)
       =# render_plugin_hook(:flavour_footer, self)
+    .footer
+      .sitemap
+        %a{:href => './sitemap.html'} sitemap
+      %a{:href => 'https://github.com/dan5/pipin'} Pipin
+      &= Pipin::VERSION
+      on
+      %a{:href => 'http://www.ruby-lang.org/'} Ruby
+      &= RUBY_VERSION
