@@ -20,7 +20,7 @@ module Pipin
 
   def self.command_new(dir)
     File.exist?(dir) && raise("File exists - #{dir}")
-    FileUtils.cp_r File.join(rootdir ,'templatefiles'), dir
+    FileUtils.cp_r File.join(rootdir ,'templates'), dir
     puts Dir.glob(File.join(dir, '**/*')).map {|e| '  create ' + e }
   end
 
@@ -45,14 +45,14 @@ module Pipin
       write_html 'archives', render_with_layout(:archives, binding)
     end
 
-    def render_months
-      years = Post.year_months
-      years.each do |year, months|
-        months.each do |month|
-          render_month(year, month)
-        end
-      end
-    end
+    #def render_months
+    #  years = Post.year_months
+    #  years.each do |year, months|
+    #    months.each do |month|
+    #      render_month(year, month)
+    #    end
+    #  end
+    #end
 
     def render_month(year, month)
       name = year + month
@@ -102,7 +102,7 @@ module Pipin
     end
 
     def self.find_srcs(pattern, options = {})
-      files = Dir.chdir(@@entries_dir) { Dir.glob(pattern + '.{txt,html}') }.sort.reverse
+      files = Dir.chdir(@@posts_dir) { Dir.glob(pattern + '.{txt,html}') }.sort.reverse
       options[:limit] ? files[0, options[:limit]] : files 
     end
 
@@ -117,20 +117,20 @@ module Pipin
       result
     end
 
-    @@compilers = [[nil, lambda {|entry| entry.body }]]
+    @@compilers = [[nil, lambda {|post| post.body }]]
     def self.add_compiler(extname = nil, &block)
       @@compilers.unshift [extname, block]
     end
 
-    @@entries_dir = 'datasample'
-    def self.entries_dir=(dir)
-      @@entries_dir = dir
+    @@posts_dir = 'data'
+    def self.posts_dir=(dir)
+      @@posts_dir = dir
     end
 
     attr_reader :filename, :header, :body
     def initialize(filename)
       @filename = filename
-      @header, @body = Dir.chdir(@@entries_dir) { File.read(@filename) }.split(/^__$/, 2)
+      @header, @body = Dir.chdir(@@posts_dir) { File.read(@filename) }.split(/^__$/, 2)
       @header, @body = nil, @header unless @body
       @header and p(@header)
     end

@@ -1,0 +1,56 @@
+# -*- encoding: UTF-8 -*-
+def root_path
+  File.dirname(File.expand_path(__FILE__))
+end
+
+# 各種パラメータ設定
+def config
+  {
+    # ブログのURLに書き換えてください
+    #:base_url => 'http://dgames.jp/pipin', # for pipinrss
+    :title => 'Thie Pipin Diary',
+    #:description => 'Please set config[:description] in pipinrc',
+    :dir => {
+      #:posts => '/Users/dan/w/piping/datasample',
+      #:views => '/Users/dan/w/piping/views',
+      #:plugins => "#{root_path}/config/plugins",
+    },
+    :limit => 5,
+    # 複数のcssを使用する場合は配列で指定してください
+    :css => '/stylesheets/pipin.css',
+    #:css => '/stylesheets/nobunaga/nobunaga.css',
+  }
+end
+
+# 記事のコンパイラを設定
+def add_compilers
+  # HikiDocを登録（拡張「.txt」に関連付ける）
+  require 'misc/hikidoc.rb'
+  Pipin::Post.add_compiler('.txt') {|post|
+    HikiDoc.to_html(post.body, :level => 2)
+    # 記事にpluginを埋め込むなら以下を使う
+    #   記事に書く例: {{amazon '4777512924'}}
+    #eval_hiki_plugin(HikiDoc.to_html(post.body, :level => 2))
+  }
+
+  # mixiスタイルを登録
+  require 'misc/mixistyle.rb'
+  Pipin::Post.add_compiler('.mixi') {|post|
+    MixiStyle.to_html(post.body)
+  }
+
+  # 拡張子「.src」のソースをそのまま表示する例
+  Pipin::Post.add_compiler('.src') {|post|
+    "<h2>#{h post.filename}</h2><pre>#{h post.body}</pre>"
+  }
+end
+
+def setup_environment
+  if defined? Encoding
+    Encoding.default_external = 'UTF-8' # 1.9
+  else
+    $KCODE = 'UTF-8' # 1.8
+  end
+  add_compilers
+  #Pipin::Post.posts_dir = config[:dir][:posts]
+end

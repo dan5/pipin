@@ -5,7 +5,7 @@ def dst_html(label)
   File.join DSTDIR, "#{label}.html"
 end
 
-SRCDIR = 'datasample'
+SRCDIR = 'data'
 DSTDIR = 'public'
 SRC_EXTNAMES = %w(html txt)
 EXTS = SRC_EXTNAMES.join(',')

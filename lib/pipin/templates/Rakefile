@@ -1,2 +1,2 @@
 #$LOAD_PATH.unshift '../lib'
-require 'pipin/tasks'
+require 'pipin/build_tasks'

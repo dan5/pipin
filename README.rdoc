@@ -10,8 +10,7 @@
 == build
 
  cd myblog
- #rake
- ruby -r pipin -e 'Pipin.command :build'
+ rake
 
 == todo
 
