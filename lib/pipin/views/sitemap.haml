@@ -1,0 +1,5 @@
+%h2 sitemap
+%ul
+  - posts.each do |post|
+    %li
+      %a{:href => post.label + htmlsufix}&= post.label

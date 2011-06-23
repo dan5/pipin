@@ -7,9 +7,9 @@
     %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
     %meta{:category => "ruby; setup"}/
     %link{:rel => "stylesheet", :type => 'text/css', :href => 'pipin.css' || config[:css]}/
-    %title= @title# || config[:title] 
+    %title&= @title || config[:title] 
   %body
-    %h1 Pipin Diary
+    %h1&= config[:title]
     .menus
       %a{:href => './index' + htmlsufix} Latest
       %a{:href => './archives' + htmlsufix} Archives
@@ -23,7 +23,7 @@
       =# render_plugin_hook(:flavour_footer, self)
     .footer
       .sitemap
-        %a{:href => './sitemap.html'} sitemap
+        %a{:href => './sitemap.html'} Sitemap
       %a{:href => 'https://github.com/dan5/pipin'} Pipin
       &= Pipin::VERSION
       on

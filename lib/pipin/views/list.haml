@@ -1,6 +1,7 @@
 .before_entries
 - posts.each do |post|
   .post
+    .date 2000-00-00
     .body~ post.to_html
     .permalink
       %a{:href => post.label + htmlsufix} permalink
