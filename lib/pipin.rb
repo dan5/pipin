@@ -3,7 +3,7 @@ require 'haml'
 require 'fileutils'
 
 def rootdir() File.join(File.dirname(File.expand_path(__FILE__)), 'pipin') end
-def htmlsufix() '.html' end
+def html_extname() config[:html_extname] or '.html' end
 
 module Pipin
   Diary_pattern = '[0-9]' * 8 + '*'

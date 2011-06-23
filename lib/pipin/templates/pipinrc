@@ -19,6 +19,7 @@ def config
     # 複数のcssを使用する場合は配列で指定してください
     :css => '/stylesheets/pipin.css',
     #:css => '/stylesheets/nobunaga/nobunaga.css',
+    :html_extname => '.html',
   }
 end
 
