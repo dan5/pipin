@@ -11,9 +11,9 @@
   %body
     %h1&= config[:title]
     .menus
-      %a{:href => './index' + html_extname} Latest
-      %a{:href => './archives' + html_extname} Archives
-      %a{:href => './about' + html_extname} About
+      %a{:href => '' + html_extname} Latest
+      %a{:href => 'archives' + html_extname} Archives
+      %a{:href => 'about' + html_extname} About
     .main
       =# render_plugin_hook(:flavour_header, self)
       .content
@@ -23,7 +23,7 @@
       =# render_plugin_hook(:flavour_footer, self)
     .footer
       .sitemap
-        %a{:href => './sitemap' + html_extname} Sitemap
+        %a{:href => 'sitemap' + html_extname} Sitemap
       %a{:href => 'https://github.com/dan5/pipin'} Pipin
       &= Pipin::VERSION
       on
