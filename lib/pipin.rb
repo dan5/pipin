@@ -2,6 +2,7 @@ require 'pipin/version'
 require 'haml'
 require 'fileutils'
 
+# todo: move in Pipin
 def rootdir() File.join(File.dirname(File.expand_path(__FILE__)), 'pipin') end
 def html_extname() config[:html_extname] or '.html' end
 
@@ -9,23 +10,22 @@ module Pipin
   Diary_pattern = '[0-9]' * 8 + '*'
   Post_pattern = '[0-9a-zA-Z]*'
 
-  def self.build(page_name, *args)
-    command :build, page_name, *args
-  end
+  class Exec
+    def initialize(*args)
+      @args = args
+    end
 
-  def self.command(cmd, *args)
-    opts = args.empty? ? ARGV : args
-    __send__ "command_#{cmd}", *opts
-  end
+    def create_from_template
+      dir = @args.first
+      File.exist?(dir) && raise("File exists - #{dir}")
+      FileUtils.cp_r File.join(rootdir ,'templates'), dir
+      puts Dir.glob(File.join(dir, '**/*')).map {|e| '  create ' + e }
+    end
 
-  def self.command_new(dir)
-    File.exist?(dir) && raise("File exists - #{dir}")
-    FileUtils.cp_r File.join(rootdir ,'templates'), dir
-    puts Dir.glob(File.join(dir, '**/*')).map {|e| '  create ' + e }
-  end
-
-  def self.command_build(page_name, *args)
-    Builder.new('public').__send__('render_' + page_name, *args)
+    def build
+      page_name, *opts = @args
+      Builder.new('public').__send__('render_' + page_name, *opts)
+    end
   end
 
   class Builder
