@@ -5,7 +5,7 @@
 == setup
 
  #pipin new myblog
- ruby -r pipin -e 'Pipin.command :new' myblog
+ ruby -I ./lib -r pipin -e 'Pipin::Exec.new().create_from_template' myblog
 
 == build
 
@@ -28,13 +28,13 @@
 == trap
 
 * 原稿ファイルを削除した場合、削除したファイルはrakeビルド時の更新条件から除外されます
-** htmlが再出力されない場合は、そのhtmlファイルを手動で削除してからrakeを実行してください
+  * htmlが再出力されない場合は、そのhtmlファイルを手動で削除してからrakeを実行してください
 
 == from tDiary
 
 * 静的なhtmlとして保存できる
-** postのhtmlを生成するプラグインや
-** 写真とかもそのままいける
+  * postのhtmlを生成するプラグインや
+  * 写真とかもそのままいける
 * urlの互換
 * exportはレンダリングされたhtmlから
 * todo: コメント...

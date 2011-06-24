@@ -12,7 +12,7 @@ module Pipin
 
   class Exec
     def initialize(*args)
-      @args = args
+      @args = args.empty? ? ARGV : args
     end
 
     def create_from_template
