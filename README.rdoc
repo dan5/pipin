@@ -5,7 +5,7 @@
 == setup
 
  #pipin new myblog
- ruby -I ./lib -r pipin -e 'Pipin::Exec.new().create_from_template' myblog
+ ruby -r pipin -e 'Pipin::Exec.new().create_from_template' myblog
 
 == build
 

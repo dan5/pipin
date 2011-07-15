@@ -6,14 +6,15 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
     %meta{:category => "ruby; setup"}/
-    %link{:rel => "stylesheet", :type => 'text/css', :href => 'pipin.css' || config[:css]}/
+    %link{:rel => "stylesheet", :type => 'text/css', :href => config[:css] || 'stylesheets/pipin.css'}/
     %title&= @title || config[:title] 
   %body
-    %h1&= config[:title]
-    .menus
-      %a{:href => '' + html_extname} Latest
-      %a{:href => 'archives' + html_extname} Archives
-      %a{:href => 'about' + html_extname} About
+    .header
+      %h1&= config[:title]
+      .menus
+        %a{:href => '' + html_extname} Latest
+        %a{:href => 'archives' + html_extname} Archives
+        %a{:href => 'about' + html_extname} About
     .main
       =# render_plugin_hook(:flavour_header, self)
       .content
