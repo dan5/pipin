@@ -12,9 +12,9 @@
     .header
       %h1&= config[:title]
       .menus
-        %a{:href => '' + html_extname} Latest
-        %a{:href => 'archives' + html_extname} Archives
-        %a{:href => 'about' + html_extname} About
+        %a{:href => './' + html_extname} Latest
+        %a{:href => './archives' + html_extname} Archives
+        %a{:href => './about' + html_extname} About
     .main
       =# render_plugin_hook(:flavour_header, self)
       .content
