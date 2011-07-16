@@ -45,25 +45,10 @@ module Pipin
       write_html 'archives', render_with_layout(:archives, binding)
     end
 
-    #def render_months
-    #  years = Post.year_months
-    #  years.each do |year, months|
-    #    months.each do |month|
-    #      render_month(year, month)
-    #    end
-    #  end
-    #end
-
     def render_month(year, month)
       name = year + month
       render_list(name, name + '*')
     end
-
-    #def render_posts
-    #  Post.find(Post_pattern).each do |post|
-    #    write_html post.label, render_with_layout(:post, binding)
-    #  end
-    #end
 
     def render_post(label)
       post = Post.find(label).first
