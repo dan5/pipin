@@ -7,7 +7,7 @@ end
 
 setup_environment
 
-SRCDIR = config[:dir][:posts]
+SRCDIR = Pipin::Post.posts_dir
 DSTDIR = 'public'
 SRC_EXTNAMES = %w(html txt)
 EXTS = SRC_EXTNAMES.join(',')

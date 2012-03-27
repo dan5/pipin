@@ -123,6 +123,11 @@ module Pipin
       File.basename(filename, '.*')
     end
 
+    def date
+      m = label.match(/^(\d{4})(\d{2})(\d{2})/)
+      m ? "#{m[1]}-#{m[2]}-#{m[3]}" : nil
+    end
+
     def to_html
       (@@compilers.assoc(File.extname filename) || @@compilers.last)[1].call(self)
     rescue

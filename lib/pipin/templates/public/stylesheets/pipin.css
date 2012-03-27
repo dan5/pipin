@@ -101,6 +101,7 @@ blockquote {
 div.date {
   font-weight: bold;
   color: #666;
+  text-align: right;
 }
 
 a { color: #04f; }
