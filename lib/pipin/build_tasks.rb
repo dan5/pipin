@@ -5,7 +5,9 @@ def dst_html(label)
   File.join DSTDIR, "#{label}.html"
 end
 
-SRCDIR = 'data'
+setup_environment
+
+SRCDIR = config[:dir][:posts]
 DSTDIR = 'public'
 SRC_EXTNAMES = %w(html txt)
 EXTS = SRC_EXTNAMES.join(',')
