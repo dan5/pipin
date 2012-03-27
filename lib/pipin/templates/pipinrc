@@ -53,5 +53,6 @@ def setup_environment
     $KCODE = 'UTF-8' # 1.8
   end
   add_compilers
-  Pipin::Post.posts_dir = config[:dir][:posts] if config[:dir][:posts]
+  Pipin::Post.posts_dir = config[:dir][:posts] || './data'
+  load_plugins config[:dir][:plugins] || './plugins'
 end

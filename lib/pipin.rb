@@ -5,6 +5,7 @@ require 'fileutils'
 # todo: move in Pipin
 def rootdir() File.join(File.dirname(File.expand_path(__FILE__)), 'pipin') end
 def html_extname() config[:html_extname] or '.html' end
+def load_plugins(dir) Dir.glob("#{dir}/*.rb").sort.each {|e| load e } end
 
 module Pipin
   Diary_pattern = '[0-9]' * 8 + '*'
@@ -31,8 +32,6 @@ module Pipin
   class Builder
     def initialize(dist_dir)
       @dist_dir = dist_dir
-      load './pipinrc'
-      setup_environment
     end
 
     def render_sitemap
@@ -82,7 +81,6 @@ module Pipin
   end
 
   class Post
-    @@posts_dir = 'data'
     def self.posts_dir=(dir) @@posts_dir = dir end
     def self.posts_dir() @@posts_dir end
 
