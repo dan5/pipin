@@ -82,6 +82,10 @@ module Pipin
   end
 
   class Post
+    @@posts_dir = 'data'
+    def self.posts_dir=(dir) @@posts_dir = dir end
+    def self.posts_dir() @@posts_dir end
+
     def self.find(pattern, options = {})
       self.find_srcs(pattern, options).map {|e| Post.new(e) }
     end
@@ -105,11 +109,6 @@ module Pipin
     @@compilers = [[nil, lambda {|post| post.body }]]
     def self.add_compiler(extname = nil, &block)
       @@compilers.unshift [extname, block]
-    end
-
-    @@posts_dir = 'data'
-    def self.posts_dir=(dir)
-      @@posts_dir = dir
     end
 
     attr_reader :filename, :header, :body
