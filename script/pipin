@@ -14,7 +14,7 @@ when 'new', 'n'
   dir = ARGV.shift || raise("Options should be given after the application name")
   Pipin::Exec.new(dir).create_from_template
 else
-puts <<__USAGE__
+  puts <<__USAGE__
 Usage:
   rails new BLOG_PATH [options]
  
