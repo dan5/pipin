@@ -3,6 +3,6 @@
   - if post.date
     .date= post.date
   .body~ post.to_html
-  .permalink
-    %a{:href => post.label + html_extname} permalink
   .after_post
+    .permalink
+      %a{:href => post.label + html_extname} permalink

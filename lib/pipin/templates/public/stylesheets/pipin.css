@@ -46,12 +46,12 @@ div.footer {
   text-align: center;
 }
 
-div.entry {
+div.post {
   margin: 2em 0;
 }
 
-div.before_entry,
-div.after_entry {
+div.before_post,
+div.after_post {
   margin: 0;
   padding: 0;
   text-align: right;
