@@ -12,6 +12,16 @@
  cd myblog
  rake
 
+== development
+
+開発環境についてのメモ。
+
+以下で新規blogを生成。
+
+ script/pipin new myblog
+
+myblog/Rakefile 先頭のコメントアウトを解除して$LOAD_PATHに'../lib'を追加すれば rake できる。
+
 == todo
 
 * カテゴリ
