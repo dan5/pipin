@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'pipin'
+rescue LoadError # for development
+  $LOAD_PATH.unshift File.dirname(File.expand_path(__FILE__)) + '/../lib'
+  require 'pipin'
+end
+
+Pipin::Exec.new.create_from_template
