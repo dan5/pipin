@@ -7,4 +7,16 @@ rescue LoadError # for development
   require 'pipin'
 end
 
-Pipin::Exec.new.create_from_template
+case ARGV.shift
+when 'new'
+  dir = ARGV.shift || raise("Options should be given after the application name")
+  Pipin::Exec.new(dir).create_from_template
+else
+puts <<__USAGE__
+Usage: pipin COMMAND [ARGS]
+
+The most common pipin commands are:
+ new         Create a new pipin blog. "pipin new my_blog_dir" creates a
+             new blog files in "./my_blog_dir"
+__USAGE__
+end
