@@ -16,7 +16,7 @@ when 'new', 'n'
 else
   puts <<__USAGE__
 Usage:
-  rails new BLOG_PATH [options]
+  pipin new BLOG_PATH [options]
  
 Options:
 
@@ -24,7 +24,7 @@ Pipin options:
   -v, [--version]  # Show Pipin version number and quit
 
 Example:
-    rails new ~/myblog
+    pipin new ~/myblog
 
     Create a new pipin blog. "pipin new ~/myblog" creates a
     new blog files in "~/myblog".
