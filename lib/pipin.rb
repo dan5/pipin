@@ -26,7 +26,7 @@ module Pipin
 
     def build
       page_name, *opts = @args
-      Builder.new('public').__send__('render_' + page_name, *opts)
+      Builder.new(config[:dir][:dist]).__send__('render_' + page_name, *opts)
     end
   end
 
@@ -87,15 +87,12 @@ module Pipin
   end
 
   class Post
-    def self.posts_dir=(dir) @@posts_dir = dir end
-    def self.posts_dir() @@posts_dir end
-
     def self.find(pattern, options = {})
       self.find_srcs(pattern, options).map {|e| Post.new(e) }
     end
 
     def self.find_srcs(pattern, options = {})
-      files = Dir.chdir(@@posts_dir) { Dir.glob(pattern + '.{txt,html}') }.sort.reverse
+      files = Dir.chdir(config[:dir][:posts]) { Dir.glob(pattern + '.{txt,html}') }.sort.reverse
       options[:limit] ? files[0, options[:limit]] : files 
     end
 
@@ -118,7 +115,7 @@ module Pipin
     attr_reader :filename, :header, :body
     def initialize(filename)
       @filename = filename
-      @header, @body = Dir.chdir(@@posts_dir) { File.read(@filename) }.split(/^__$/, 2)
+      @header, @body = Dir.chdir(config[:dir][:posts]) { File.read(@filename) }.split(/^__$/, 2)
       @header, @body = nil, @header unless @body
       @header and p(@header)
     end

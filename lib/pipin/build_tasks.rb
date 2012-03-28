@@ -7,8 +7,8 @@ end
 
 setup_environment
 
-SRCDIR = Pipin::Post.posts_dir
-DSTDIR = 'public'
+SRCDIR = config[:dir][:posts]
+DSTDIR = config[:dir][:dist]
 SRC_EXTNAMES = %w(html txt)
 EXTS = SRC_EXTNAMES.join(',')
 
@@ -27,7 +27,7 @@ end
 
 # posts
 SRC_EXTNAMES.each do |extname|
-  rule /public\/\w+\.html/ => "#{SRCDIR}/%n.#{extname}" do |t|
+  rule /#{Regexp.escape DSTDIR}\/\w+\.html/ => "#{SRCDIR}/%n.#{extname}" do |t|
     Pipin::Exec.new('post', File.basename(t.name, '.html')).build
   end
 end

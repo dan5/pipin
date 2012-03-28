@@ -11,9 +11,10 @@ def config
     :title => 'Thie Pipin Diary',
     #:description => 'Please set config[:description] in pipinrc',
     :dir => {
-      #:posts => '/Users/dan/w/piping/datasample',
-      #:views => '/Users/dan/w/piping/views',
-      #:plugins => "#{root_path}/config/plugins",
+      :dist => './public',
+      :posts => './data',
+      #:views => "#{pipin_root}/pipin/templates/plugins",
+      #:plugins => "#{pipin_root}/pipin/templates/plugins",
     },
     :limit => 5,
     # 複数のcssを使用する場合は配列で指定してください
@@ -53,7 +54,6 @@ def setup_environment
     $KCODE = 'UTF-8' # 1.8
   end
   add_compilers
-  Pipin::Post.posts_dir = config[:dir][:posts] || './data'
   load_plugins config[:dir][:plugins] || './plugins'
 end
 
