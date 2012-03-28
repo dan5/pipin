@@ -64,9 +64,14 @@ module Pipin
     end
 
     def write_html(label, html)
+      filename = label + '.html'
+      create_dist_file(filename, html)
+    end
+
+    def create_dist_file(filename, text)
       Dir.mkdir @dist_dir unless File.exist?(@dist_dir)
-      filename = File.join(@dist_dir, label + '.html')
-      File.open(filename, 'w') {|f| f.write html }
+      filename = File.join(@dist_dir, filename)
+      File.open(filename, 'w') {|f| f.write text }
       puts '  create ' + filename
     end
 

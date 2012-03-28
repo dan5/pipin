@@ -19,7 +19,11 @@ MONTH_DSTS = Pipin::Post.year_months.map {|year, months|
   months.map {|month| dst_html(year + month) }
 }.flatten
 
-task :default => [:index, :archives, :months, :sitemap] + DSTS.sort.reverse
+task :default => [:index, :archives, :months, :sitemap] + DSTS.sort.reverse + [:after_build]
+
+task :after_build do
+  after_build
+end
 
 # posts
 SRC_EXTNAMES.each do |extname|
