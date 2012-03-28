@@ -24,6 +24,7 @@ myblog/Rakefile 先頭のコメントアウトを解除して$LOAD_PATHに'../li
 
 == todo
 
+* viewをローカルにコピーしてくるpipinコマンドオプション
 * カテゴリ
 
 == trap

@@ -9,7 +9,8 @@ def load_plugins(dir) Dir.glob("#{dir}/*.rb").sort.each {|e| load e } end
 
 module Pipin
   Diary_pattern = '[0-9]' * 8 + '*'
-  Post_pattern = '[0-9a-zA-Z]*'
+  Post_pattern = '[_0-9a-zA-Z]*'
+  Sitemap_pattern = '[0-9a-zA-Z]*'
 
   class Exec
     def initialize(*args)
@@ -35,7 +36,7 @@ module Pipin
     end
 
     def render_sitemap
-      posts = Post.find(Post_pattern)
+      posts = Post.find(Sitemap_pattern)
       write_html 'sitemap', render_with_layout(:sitemap, binding)
     end
 
