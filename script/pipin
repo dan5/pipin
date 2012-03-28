@@ -8,15 +8,25 @@ rescue LoadError # for development
 end
 
 case ARGV.shift
-when 'new'
+when '--version', '-v'
+  puts "Pipin #{Pipin::VERSION}"
+when 'new', 'n'
   dir = ARGV.shift || raise("Options should be given after the application name")
   Pipin::Exec.new(dir).create_from_template
 else
 puts <<__USAGE__
-Usage: pipin COMMAND [ARGS]
+Usage:
+  rails new BLOG_PATH [options]
+ 
+Options:
 
-The most common pipin commands are:
- new         Create a new pipin blog. "pipin new my_blog_dir" creates a
-             new blog files in "./my_blog_dir"
+Pipin options:
+  -v, [--version]  # Show Pipin version number and quit
+
+Example:
+    rails new ~/myblog
+
+    Create a new pipin blog. "pipin new ~/myblog" creates a
+    new blog files in "~/myblog".
 __USAGE__
 end
