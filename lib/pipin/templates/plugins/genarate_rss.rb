@@ -7,7 +7,7 @@ module Pipin
       options[:limit] ||= 20
       posts = Post.find(Diary_pattern, :limit => options[:limit])
       rss = generate_rss(posts, options)
-      create_dist_file('rss', rss)
+      create_distfile('rss', rss)
     end
 
     def generate_rss(entries, options = {})

@@ -9,7 +9,7 @@ def config
     # ブログのURLに書き換えてください
     :base_url => 'http://exsample.com', # for rss
     :title => 'Thie Pipin Diary',
-    #:description => 'Please set config[:description] in pipinrc',
+    :description => 'Description: Please set config[:description] in pipinrc',
     :dir => {
       :dist => './public',
       :posts => './data',
@@ -21,6 +21,13 @@ def config
     #:css => '/stylesheets/pipin.css',
     #:css => '/stylesheets/nobunaga/nobunaga.css',
     :html_extname => '.html',
+
+    # upload setting
+    #:upload => :scp,
+    #:scp => {
+    #  :dist => 'user@example.com:public_html/myblog',
+    #  :password => '__password__',
+    #},
   }
 end
 

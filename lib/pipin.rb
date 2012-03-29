@@ -31,6 +31,8 @@ module Pipin
   end
 
   class Builder
+    def self.distfiles() @@distfiles end
+
     def initialize(dist_dir)
       @dist_dir = dist_dir
     end
@@ -66,14 +68,16 @@ module Pipin
 
     def write_html(label, html)
       filename = label + '.html'
-      create_dist_file(filename, html)
+      create_distfile(filename, html)
     end
 
-    def create_dist_file(filename, text)
+    def create_distfile(filename, text)
       Dir.mkdir @dist_dir unless File.exist?(@dist_dir)
       filename = File.join(@dist_dir, filename)
       File.open(filename, 'w') {|f| f.write text }
       puts '  create ' + filename
+      @@distfiles ||= []
+      @@distfiles << filename
     end
 
     def render_with_layout(template, b = binding)
