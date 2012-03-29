@@ -15,7 +15,7 @@ module Pipin
       RSS::Maker.make("1.0") do |maker|
         entries.each do |entry|
           item = maker.items.new_item
-          item.link            = "#{top}/permalink/#{entry.label + html_extname}"
+          item.link            = "#{top}/#{entry.label + html_extname}"
           item.description     = entry.rss_description
           item.title           = entry.rss_tile
           item.content_encoded = entry.rss_body

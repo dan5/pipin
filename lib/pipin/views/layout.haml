@@ -6,7 +6,9 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
     %meta{:category => "ruby; setup"}/
-    %link{:rel => "stylesheet", :type => 'text/css', :href => config[:css] || 'stylesheets/pipin.css'}/
+    %link{:rel => "stylesheet", :type => "text/css", :href => config[:css] || "stylesheets/pipin.css"}/
+    %link{:rel => "shortcut icon", :href => "./favicon.ico"}/
+    %link{:rel => "alternate", :type => "application/rss+xml", :title => "RSS", :href => "#{config[:base_url]}/rss"}/
     %title&= @title || config[:title] 
   %body
     .header
