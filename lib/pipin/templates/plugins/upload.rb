@@ -31,13 +31,13 @@ end
 def upload_ftp
   upload do |srcs|
     ftp = Net::FTP.new
-    ftp.connect(config[:ftp][:server])
-    ftp.login(config[:ftp][:user], config[:ftp][:password])
+    ftp.connect config[:ftp][:server]
+    ftp.login config[:ftp][:user], config[:ftp][:password]
     ftp.binary = true
-    ftp.chdir(config[:ftp][:dist])
+    ftp.chdir config[:ftp][:dist]
     srcs.each do |e|
       puts "  ftp.put #{e}"
-      ftp.put(e)
+      ftp.put e 
     end
     ftp.quit
   end
