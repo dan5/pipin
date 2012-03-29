@@ -23,7 +23,13 @@ def config
     :html_extname => '.html',
 
     # upload setting
-    #:upload => :scp,
+    :upload => :ftp,
+    :ftp => {
+      :server => 'example.com',
+      :user => '__user__',
+      :dist => 'public_html/myblog',
+      :password => '__password__',
+    },
     #:scp => {
     #  :dist => 'user@example.com:public_html/myblog',
     #  :password => '__password__',
