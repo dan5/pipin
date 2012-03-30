@@ -61,7 +61,7 @@ def setup_tempdir(dir)
   Dir.mkdir dir
 end
 
-if defined?(task) and config[:upload]
+if defined?(task) and config[:upload] and [:scp, :ftp].include?(config[:upload])
   meth = "upload_#{config[:upload]}"
   task :upload => [:default, meth]
   task meth do

@@ -23,17 +23,12 @@ def config
     :html_extname => '.html',
 
     # upload setting
-    :upload => :ftp,
-    :ftp => {
-      :server => 'example.com',
-      :user => '__user__',
-      :dist => 'public_html/myblog',
+    :upload => :rsync,
+    :rsync => {
+      :dist => 'user@example.com:public_html',
       :password => '__password__',
+      :delete => false,
     },
-    #:scp => {
-    #  :dist => 'user@example.com:public_html/myblog',
-    #  :password => '__password__',
-    #},
   }
 end
 
