@@ -1,3 +1,5 @@
+testman
+
 == install
 
  gem install pipin
