@@ -54,6 +54,7 @@ module Pipin
 
     def render_post(label)
       post = Post.find(label).first
+      @title = "#{post.title} #{config[:title]}"
       write_html label, render_with_layout(:post, binding)
     end
 
@@ -131,6 +132,10 @@ module Pipin
     def date
       m = label.match(/^(\d{4})(\d{2})(\d{2})/)
       m ? "#{m[1]}-#{m[2]}-#{m[3]}" : nil
+    end
+
+    def title
+      @_title ||= to_html[/<h2>.*<\/h2>/i].to_s.gsub(/<[^>]*>/, '')
     end
 
     def to_html

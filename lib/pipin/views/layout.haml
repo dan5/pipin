@@ -9,7 +9,7 @@
     %link{:rel => "stylesheet", :type => "text/css", :href => config[:css] || "stylesheets/pipin.css"}/
     %link{:rel => "shortcut icon", :href => "./favicon.ico"}/
     %link{:rel => "alternate", :type => "application/rss+xml", :title => "RSS", :href => "#{config[:base_url]}/rss"}/
-    %title&= @title || config[:title] 
+    %title&= @title || config[:title]
   %body
     .header
       %h1&= config[:title]
@@ -26,6 +26,7 @@
         .before_content=# render_plugin_hook(:after_content, self)
       =# render_plugin_hook(:flavour_footer, self)
     .footer
+      = config[:footer]
       .sitemap
         %a{:href => 'sitemap' + html_extname} Sitemap
       %a{:href => 'https://github.com/dan5/pipin'} Pipin
